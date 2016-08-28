@@ -159,6 +159,7 @@ window.onhashchange = function () {
       script.parentNode.removeChild(script);
     };
     script.onerror = function () {
+      window.parent.postMessage("loading error", "*");
       window.parent.postMessage("done", "*");
       script.parentNode.removeChild(script);
     };
