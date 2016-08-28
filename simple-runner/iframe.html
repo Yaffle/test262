@@ -149,12 +149,16 @@ if (Object.freeze != undefined) {
 }
 
 window.onhashchange = function () {
-  var src = decodeURIComponent(location.hash.slice(1));
+  var src = decodeURIComponent(location.hash.slice(1) + "x");
   var script = document.createElement("script");
   script.src = src;
   document.querySelector("head").appendChild(script);
   if ("onload" in script) {
     script.onload = function () {
+      window.parent.postMessage("done", "*");
+      script.parentNode.removeChild(script);
+    };
+    script.onerror = function () {
       window.parent.postMessage("done", "*");
       script.parentNode.removeChild(script);
     };
