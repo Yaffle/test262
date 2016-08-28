@@ -9,13 +9,12 @@ es5id: 15.5.4.16_A8
 description: >
     Checking if enumerating the String.prototype.toLowerCase.length
     property fails
-includes: [$FAIL.js]
 ---*/
 
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#0
 if (!(String.prototype.toLowerCase.hasOwnProperty('length'))) {
-  $FAIL('#0: String.prototype.toLowerCase.hasOwnProperty(\'length\') return true. Actual: '+String.prototype.toLowerCase.hasOwnProperty('length'));
+  $ERROR('#0: String.prototype.toLowerCase.hasOwnProperty(\'length\') return true. Actual: '+String.prototype.toLowerCase.hasOwnProperty('length'));
 }
 //
 //////////////////////////////////////////////////////////////////////////////
@@ -33,7 +32,7 @@ if (String.prototype.toLowerCase.propertyIsEnumerable('length')) {
 // CHECK#2
 var count=0;
 
-for (p in String.prototype.toLowerCase){
+for (var p in String.prototype.toLowerCase){
   if (p==="length") count++;
 }
 

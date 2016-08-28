@@ -1,20 +1,32 @@
-// Copyright (c) 2012 Ecma International.  All rights reserved.
-// Ecma International makes this code available under the terms and conditions set
-// forth on http://hg.ecmascript.org/tests/test262/raw-file/tip/LICENSE (the
-// "Use Terms").   Any redistribution of this code must retain the above
-// copyright and this notice and otherwise comply with the Use Terms.
+// Copyright (C) 2015 Caitlin Potter. All rights reserved.
+// This code is governed by the BSD license found in the LICENSE file.
 
-/*---
-es5id: 13.2-30-s
-description: >
-    StrictMode - property named 'caller' of function objects is not
-    configurable
-flags: [onlyStrict]
-includes: [runTestCase.js]
+/*--- 
+ description: >
+    Functions created using Function.prototype.bind() do not have own
+    properties "caller" or "arguments", but inherit them from
+    %FunctionPrototype%.
 ---*/
 
-function testcase() {
-        return ! Object.getOwnPropertyDescriptor(Function("'use strict';"), 
-                                                  "caller").configurable;
-}
-runTestCase(testcase);
+function target() {}
+var self = {};
+var bound = target.bind(self);
+
+assert.sameValue(bound.hasOwnProperty('caller'), false, 'Functions created using Function.prototype.bind() do not have own property "caller"');
+assert.sameValue(bound.hasOwnProperty('arguments'), false, 'Functions created using Function.prototype.bind() do not have own property "arguments"');
+
+assert.throws(TypeError, function() {
+  return bound.caller;
+});
+
+assert.throws(TypeError, function() {
+  bound.caller = {};
+});
+
+assert.throws(TypeError, function() {
+  return bound.arguments;
+});
+
+assert.throws(TypeError, function() {
+  bound.arguments = {};
+});

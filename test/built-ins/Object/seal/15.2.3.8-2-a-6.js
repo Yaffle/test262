@@ -1,42 +1,37 @@
 // Copyright (c) 2012 Ecma International.  All rights reserved.
-// Ecma International makes this code available under the terms and conditions set
-// forth on http://hg.ecmascript.org/tests/test262/raw-file/tip/LICENSE (the
-// "Use Terms").   Any redistribution of this code must retain the above
-// copyright and this notice and otherwise comply with the Use Terms.
+// This code is governed by the BSD license found in the LICENSE file.
 
 /*---
 es5id: 15.2.3.8-2-a-6
 description: >
     Object.seal - 'P' is own accessor property that overrides an
     inherited accessor property
-includes: [runTestCase.js]
+includes: [propertyHelper.js]
 ---*/
 
-function testcase() {
-        var proto = {};
+var proto = {};
 
-        Object.defineProperty(proto, "foo", {
-            get: function () {
-                return 0;
-            },
-            configurable: true
-        });
+Object.defineProperty(proto, "foo", {
+    get: function () {
+        return 0;
+    },
+    configurable: true
+});
 
-        var ConstructFun = function () { };
-        ConstructFun.prototype = proto;
+var ConstructFun = function () { };
+ConstructFun.prototype = proto;
 
-        var child = new ConstructFun();
+var obj = new ConstructFun();
 
-        Object.defineProperty(child, "foo", {
-            get: function () {
-                return 10;
-            },
-            configurable: true
-        });
-        var preCheck = Object.isExtensible(child);
-        Object.seal(child);
+Object.defineProperty(obj, "foo", {
+    get: function () {
+        return 10;
+    },
+    configurable: true
+});
 
-        delete child.foo;
-        return preCheck && child.foo === 10;
-    }
-runTestCase(testcase);
+assert(Object.isExtensible(obj));
+Object.seal(obj);
+
+verifyNotConfigurable(obj, "foo");
+assert.sameValue(obj.foo, 10);

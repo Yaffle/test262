@@ -1,18 +1,13 @@
 // Copyright (c) 2012 Ecma International.  All rights reserved.
-// Ecma International makes this code available under the terms and conditions set
-// forth on http://hg.ecmascript.org/tests/test262/raw-file/tip/LICENSE (the
-// "Use Terms").   Any redistribution of this code must retain the above
-// copyright and this notice and otherwise comply with the Use Terms.
+// This code is governed by the BSD license found in the LICENSE file.
 
 /*---
 es5id: 15.2.3.6-4-577
 description: >
     ES5 Attributes - [[Set]] attribute is a function which involves
     'this' object into statement(s)
-includes: [runTestCase.js]
 ---*/
 
-function testcase() {
         var obj = {};
 
         var setFunc = function (value) {
@@ -26,6 +21,6 @@ function testcase() {
 
         var desc = Object.getOwnPropertyDescriptor(obj, "prop");
 
-        return obj.hasOwnProperty("prop") && desc.set === setFunc && obj.len === 2010;
-    }
-runTestCase(testcase);
+assert(obj.hasOwnProperty("prop"), 'obj.hasOwnProperty("prop") !== true');
+assert.sameValue(desc.set, setFunc, 'desc.set');
+assert.sameValue(obj.len, 2010, 'obj.len');

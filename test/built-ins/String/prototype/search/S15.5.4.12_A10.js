@@ -7,20 +7,20 @@ es5id: 15.5.4.12_A10
 description: >
     Checking if varying the String.prototype.search.length property
     fails
-includes: [$FAIL.js]
+includes: [propertyHelper.js]
 ---*/
 
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#1
 if (!(String.prototype.search.hasOwnProperty('length'))) {
-  $FAIL('#1: String.prototype.search.hasOwnProperty(\'length\') return true. Actual: '+String.prototype.search.hasOwnProperty('length'));
+  $ERROR('#1: String.prototype.search.hasOwnProperty(\'length\') return true. Actual: '+String.prototype.search.hasOwnProperty('length'));
 }
 //
 //////////////////////////////////////////////////////////////////////////////
 
 var __obj = String.prototype.search.length;
 
-String.prototype.search.length = function(){return "shifted";};
+verifyNotWritable(String.prototype.search, "length", null, function(){return "shifted";});
 
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#2

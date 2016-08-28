@@ -1,8 +1,5 @@
 // Copyright (c) 2012 Ecma International.  All rights reserved.
-// Ecma International makes this code available under the terms and conditions set
-// forth on http://hg.ecmascript.org/tests/test262/raw-file/tip/LICENSE (the
-// "Use Terms").   Any redistribution of this code must retain the above
-// copyright and this notice and otherwise comply with the Use Terms.
+// This code is governed by the BSD license found in the LICENSE file.
 
 /*---
 es5id: 15.2.3.6-4-563
@@ -11,10 +8,8 @@ description: >
     accessor property ([[Get]] is a Function, [[Set]] is a Function,
     [[Enumerable]] is false, [[Configurable]] is false) to different
     value
-includes: [runTestCase.js]
 ---*/
 
-function testcase() {
         var obj = {};
 
         var getFunc = function () {
@@ -39,14 +34,11 @@ function testcase() {
                 result1 = true;
             }
         }
-
-        try {
+assert.throws(TypeError, function() {
             Object.defineProperty(obj, "prop", {
                 enumerable: true
             });
-
-            return false;
-        } catch (e) {
+});
             var result2 = false;
             var desc2 = Object.getOwnPropertyDescriptor(obj, "prop");
             for (var p2 in obj) {
@@ -55,7 +47,7 @@ function testcase() {
                 }
             }
 
-            return !result1 && !result2 && desc1.enumerable === false && desc2.enumerable === false && e instanceof TypeError;
-        }
-    }
-runTestCase(testcase);
+assert.sameValue(result1, false, 'result1');
+assert.sameValue(result2, false, 'result2');
+assert.sameValue(desc1.enumerable, false, 'desc1.enumerable');
+assert.sameValue(desc2.enumerable, false, 'desc2.enumerable');

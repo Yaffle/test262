@@ -1,18 +1,13 @@
 // Copyright (c) 2012 Ecma International.  All rights reserved.
-// Ecma International makes this code available under the terms and conditions set
-// forth on http://hg.ecmascript.org/tests/test262/raw-file/tip/LICENSE (the
-// "Use Terms").   Any redistribution of this code must retain the above
-// copyright and this notice and otherwise comply with the Use Terms.
+// This code is governed by the BSD license found in the LICENSE file.
 
 /*---
 es5id: 15.4.4.15-8-9
 description: >
     Array.prototype.lastIndexOf must return correct index (Sparse
     Array)
-includes: [runTestCase.js]
 ---*/
 
-function testcase() {
   var a = new Array(0,1);  
   a[4294967294] = 2;          // 2^32-2 - is max array element index
   a[4294967295] = 3;          // 2^32-1 added as non-array element property
@@ -24,9 +19,7 @@ function testcase() {
   a[4294967202] = 5;         
 
 
-  return (a.lastIndexOf(2) === 4294967294 &&    
-      a.lastIndexOf(3) === 4294967200 &&
-      a.lastIndexOf(4) === 4294967201 &&
-      a.lastIndexOf(5) === 4294967202) ;
-   }
-runTestCase(testcase);
+assert.sameValue(a.lastIndexOf(2), 4294967294, 'a.lastIndexOf(2)');
+assert.sameValue(a.lastIndexOf(3), 4294967200, 'a.lastIndexOf(3)');
+assert.sameValue(a.lastIndexOf(4), 4294967201, 'a.lastIndexOf(4)');
+assert.sameValue(a.lastIndexOf(5), 4294967202, 'a.lastIndexOf(5)');

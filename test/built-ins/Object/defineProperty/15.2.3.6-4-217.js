@@ -1,8 +1,5 @@
 // Copyright (c) 2012 Ecma International.  All rights reserved.
-// Ecma International makes this code available under the terms and conditions set
-// forth on http://hg.ecmascript.org/tests/test262/raw-file/tip/LICENSE (the
-// "Use Terms").   Any redistribution of this code must retain the above
-// copyright and this notice and otherwise comply with the Use Terms.
+// This code is governed by the BSD license found in the LICENSE file.
 
 /*---
 es5id: 15.2.3.6-4-217
@@ -10,34 +7,18 @@ description: >
     Object.defineProperty - 'O' is an Array, 'name' is an array index
     property, both the [[Value]] field of 'desc' and the [[Value]]
     attribute value of 'name' are NaN  (15.4.5.1 step 4.c)
-includes: [runTestCase.js]
+includes: [propertyHelper.js]
 ---*/
 
-function testcase() {
-        var arrObj = [];
+var arrObj = [];
 
-        Object.defineProperty(arrObj, "0", { value: NaN });
+Object.defineProperty(arrObj, "0", { value: NaN });
 
-        Object.defineProperty(arrObj, "0", { value: NaN });
+Object.defineProperty(arrObj, "0", { value: NaN });
 
-        var hasProperty = arrObj.hasOwnProperty("0");
-        var verifyValue = (arrObj[0] !== arrObj[0]);
+assert(arrObj.hasOwnProperty("0"));
+assert(arrObj[0] !== arrObj[0]);
 
-        var verifyWritable = false;
-        arrObj[0] = 1001;
-        verifyWritable = arrObj[0] !== 1001 && arrObj[0] !== arrObj[0];
-
-        var verifyEnumerable = false;
-        for (var p in arrObj) {
-            if (p === "0") {
-                verifyEnumerable = true;
-            }
-        }
-
-        var verifyConfigurable = false;
-        delete arrObj[0];
-        verifyConfigurable = arrObj.hasOwnProperty("0");
-
-        return hasProperty && verifyValue && verifyWritable && !verifyEnumerable && verifyConfigurable;
-    }
-runTestCase(testcase);
+verifyNotWritable(arrObj, "0");
+verifyNotEnumerable(arrObj, "0");
+verifyNotConfigurable(arrObj, "0");

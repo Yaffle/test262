@@ -8,17 +8,16 @@ info: >
     2. If an exception was thrown, return (throw, V, empty) where V is the exception
 es5id: 12.1_A2
 description: Throwing exception within a Block
-includes: [$PRINT.js]
 ---*/
 
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#1
-try {
-	x();
-	$ERROR('#1: "x()" lead to throwing exception');
-} catch (e) {
-	$PRINT(e.message);
-}
+assert.throws(ReferenceError, function() {
+	{
+		x();
+	}
+});
+
 //
 //////////////////////////////////////////////////////////////////////////////
 

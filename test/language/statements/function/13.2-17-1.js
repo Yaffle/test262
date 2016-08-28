@@ -1,8 +1,5 @@
 // Copyright (c) 2012 Ecma International.  All rights reserved.
-// Ecma International makes this code available under the terms and conditions set
-// forth on http://hg.ecmascript.org/tests/test262/raw-file/tip/LICENSE (the
-// "Use Terms").   Any redistribution of this code must retain the above
-// copyright and this notice and otherwise comply with the Use Terms.
+// This code is governed by the BSD license found in the LICENSE file.
 
 /*---
 es5id: 13.2-17-1
@@ -10,12 +7,10 @@ description: >
     Function Object has 'constructor' as its own property, it is not
     enumerable and does not invoke the setter defined on
     Function.prototype.constructor (Step 17)
-includes: [runTestCase.js]
 ---*/
 
-function testcase() {
         var desc = Object.getOwnPropertyDescriptor(Object.prototype, "constructor");
-        try {
+
             var getFunc = function () {
                 return 100;
             };
@@ -51,9 +46,8 @@ function testcase() {
             delete fun.prototype.constructor;
             verifyConfigurable = fun.hasOwnProperty("constructor");
 
-            return verifyValue && verifyWritable && !verifyEnumerable && !verifyConfigurable && data === "data";
-        } finally {
-            Object.defineProperty(Object.prototype, "constructor", desc);
-        }
-    }
-runTestCase(testcase);
+assert(verifyValue, 'verifyValue !== true');
+assert(verifyWritable, 'verifyWritable !== true');
+assert.sameValue(verifyEnumerable, false, 'verifyEnumerable');
+assert.sameValue(verifyConfigurable, false, 'verifyConfigurable');
+assert.sameValue(data, "data", 'data');

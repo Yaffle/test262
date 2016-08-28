@@ -1,18 +1,13 @@
 // Copyright (c) 2012 Ecma International.  All rights reserved.
-// Ecma International makes this code available under the terms and conditions set
-// forth on http://hg.ecmascript.org/tests/test262/raw-file/tip/LICENSE (the
-// "Use Terms").   Any redistribution of this code must retain the above
-// copyright and this notice and otherwise comply with the Use Terms.
+// This code is governed by the BSD license found in the LICENSE file.
 
 /*---
 es5id: 15.2.3.6-4-570
 description: >
     ES5 Attributes - [[Get]] attribute is a function which doesn't
     contains return statement
-includes: [runTestCase.js]
 ---*/
 
-function testcase() {
         var obj = {};
         var verifyExecute = false;
         var getFunc = function () {
@@ -25,6 +20,7 @@ function testcase() {
 
         var desc = Object.getOwnPropertyDescriptor(obj, "prop");
 
-        return obj.hasOwnProperty("prop") && desc.get === getFunc && typeof obj.prop === "undefined" && verifyExecute;
-    }
-runTestCase(testcase);
+assert(obj.hasOwnProperty("prop"), 'obj.hasOwnProperty("prop") !== true');
+assert.sameValue(desc.get, getFunc, 'desc.get');
+assert.sameValue(typeof obj.prop, "undefined", 'typeof obj.prop');
+assert(verifyExecute, 'verifyExecute !== true');

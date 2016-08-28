@@ -1,8 +1,5 @@
 // Copyright (c) 2012 Ecma International.  All rights reserved.
-// Ecma International makes this code available under the terms and conditions set
-// forth on http://hg.ecmascript.org/tests/test262/raw-file/tip/LICENSE (the
-// "Use Terms").   Any redistribution of this code must retain the above
-// copyright and this notice and otherwise comply with the Use Terms.
+// This code is governed by the BSD license found in the LICENSE file.
 
 /*---
 es5id: 15.2.3.6-4-420
@@ -10,25 +7,18 @@ description: >
     ES5 Attributes - Failed to add a property to an object when the
     object's prototype has a property with the same name and
     [[Writable]] set to false(Function.prototype.bind)
-includes: [runTestCase.js]
+includes: [propertyHelper.js]
 ---*/
 
-function testcase() {
-        var foo = function () { };
-        try {
-            Object.defineProperty(Function.prototype, "prop", {
-                value: 1001,
-                writable: false,
-                enumerable: false,
-                configurable: true
-            });
+var foo = function () { };
 
-            var obj = foo.bind({});
-            obj.prop = 1002;
+    Object.defineProperty(Function.prototype, "prop", {
+        value: 1001,
+        writable: false,
+        enumerable: false,
+        configurable: true
+    });
 
-            return !obj.hasOwnProperty("prop") && obj.prop === 1001;
-        } finally {
-            delete Function.prototype.prop;
-        }
-    }
-runTestCase(testcase);
+    var obj = foo.bind({});
+    assert(!obj.hasOwnProperty("prop"));
+    verifyNotWritable(foo, "prop", "noCheckOwnProp");

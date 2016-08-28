@@ -7,19 +7,21 @@ es5id: 15.8.2.5_A16
 description: >
     Checking if Math.atan2(y,x) is -0, where y<0 and y is finite and x
     is equal to +Infinity
-includes: [$FAIL.js]
 ---*/
 
 // CHECK#1
-x = +Infinity;
-y = new Array();
+var x = +Infinity;
+var y = new Array();
 y[0] = -0.000000000000001;
 y[1] = -1;
 y[2] = -1.7976931348623157E308; //largest by abs() finite number 
-ynum = 3;
+var ynum = 3;
 
-for (i = 0; i < ynum; i++)
+for (var i = 0; i < ynum; i++)
 {
-	if (Math.atan2(y[i],x) !== -0)
-		$FAIL("#1: Math.atan2(" + y[i] + ", " + x + ") !== -0");
+  assert.sameValue(
+    Math.atan2(y[i], x),
+    -0,
+    "(" + y[i] + ", Infinity)"
+  );
 }

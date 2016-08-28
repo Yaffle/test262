@@ -1,8 +1,5 @@
 // Copyright (c) 2012 Ecma International.  All rights reserved.
-// Ecma International makes this code available under the terms and conditions set
-// forth on http://hg.ecmascript.org/tests/test262/raw-file/tip/LICENSE (the
-// "Use Terms").   Any redistribution of this code must retain the above
-// copyright and this notice and otherwise comply with the Use Terms.
+// This code is governed by the BSD license found in the LICENSE file.
 
 /*---
 es5id: 15.2.3.6-4-413
@@ -10,10 +7,8 @@ description: >
     ES5 Attributes - Successfully add a property to an object when the
     object's prototype has a property with the same name and
     [[Writable]] set to true (Object.create)
-includes: [runTestCase.js]
 ---*/
 
-function testcase() {
         var appointment = {};
 
         Object.defineProperty(appointment, "startTime", {
@@ -47,8 +42,7 @@ function testcase() {
             teamMeeting.hasOwnProperty("startTime") &&
             teamMeeting.hasOwnProperty('conferenceCall');
 
-        return hasOwnProperty && teamMeeting.name === "Team Meeting" &&
-            teamMeeting.startTime === dateObj &&
-            teamMeeting.conferenceCall === "4255551212";
-    }
-runTestCase(testcase);
+assert(hasOwnProperty, 'hasOwnProperty !== true');
+assert.sameValue(teamMeeting.name, "Team Meeting", 'teamMeeting.name');
+assert.sameValue(teamMeeting.startTime, dateObj, 'teamMeeting.startTime');
+assert.sameValue(teamMeeting.conferenceCall, "4255551212", 'teamMeeting.conferenceCall');

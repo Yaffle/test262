@@ -7,6 +7,7 @@ es5id: 15.5.4.5_A10
 description: >
     Checking if varying the String.prototype.charCodeAt.length
     property fails
+includes: [propertyHelper.js]
 ---*/
 
 //////////////////////////////////////////////////////////////////////////////
@@ -19,7 +20,7 @@ if (!(String.prototype.charCodeAt.hasOwnProperty('length'))) {
 
 var __obj = String.prototype.charCodeAt.length;
 
-String.prototype.charCodeAt.length = function(){return "shifted";};
+verifyNotWritable(String.prototype.charCodeAt, "length", null, function(){return "shifted";});
 
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#2

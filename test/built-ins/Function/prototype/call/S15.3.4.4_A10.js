@@ -7,17 +7,17 @@ es5id: 15.3.4.4_A10
 description: >
     Checking if varying the Function.prototype.call.length property
     fails
-includes: [$FAIL.js]
+includes: [propertyHelper.js]
 ---*/
 
 //CHECK#1
 if (!(Function.prototype.call.hasOwnProperty('length'))) {
-  $FAIL('#1: the Function.prototype.call has length property.');
+  $ERROR('#1: the Function.prototype.call has length property.');
 }
 
 var obj = Function.prototype.call.length;
 
-Function.prototype.call.length = function(){return "shifted";};
+verifyNotWritable(Function.prototype.call, "length", null, function(){return "shifted";});
 
 //CHECK#2
 if (Function.prototype.call.length !== obj) {

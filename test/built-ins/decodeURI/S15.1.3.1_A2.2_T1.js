@@ -5,7 +5,6 @@
 info: If B1 = 0xxxxxxxx ([0x00 - 0x7F]), without [uriReserved, #], return B1
 es5id: 15.1.3.1_A2.2_T1
 description: Complex tests, use RFC 3629
-includes: [Test262Error.js]
 ---*/
 
 var errorCount = 0;
@@ -20,7 +19,7 @@ for (var indexB1 = 0x00; indexB1 <= 0x7F; indexB1++) {
   var index = indexB1;  
   try {
     var hex = String.fromCharCode(index);
-    for (indexC = 0; indexC < uriReserved.length; indexC++) {    
+    for (var indexC = 0; indexC < uriReserved.length; indexC++) {
       if (hex === uriReserved[indexC]) continue l;        
     } 
     if (hex === "#") continue l;

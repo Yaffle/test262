@@ -13,7 +13,6 @@ description: >
     Arguments are objects, and instance is string.  First object have
     overrided toString function.  Second object have overrided valueOf
     function and toString function, that throw exception
-includes: [$FAIL.js]
 ---*/
 
 var __obj = {toString:function(){return "\u0041B";}}
@@ -22,15 +21,13 @@ var __str = new String("ABB\u0041BABAB");
 
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#1
-with(__str){
     try {
-      var x = split(__obj, __obj2);
-      $FAIL('#1: "var x = split(__obj, __obj2)" lead to throwing exception');
+      var x = __str.split(__obj, __obj2);
+      $ERROR('#1: "var x = __str.split(__obj, __obj2)" lead to throwing exception');
     } catch (e) {
       if (e!=="intointeger") {
         $ERROR('#1.1: Exception === "intointeger". Actual: '+e);
       }
     }
-}
 //
 //////////////////////////////////////////////////////////////////////////////

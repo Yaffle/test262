@@ -7,20 +7,20 @@ es5id: 15.5.4.15_A10
 description: >
     Checking if varying the String.prototype.substring.length property
     fails
-includes: [$FAIL.js]
+includes: [propertyHelper.js]
 ---*/
 
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#1
 if (!(String.prototype.substring.hasOwnProperty('length'))) {
-  $FAIL('#1: String.prototype.substring.hasOwnProperty(\'length\') return true. Actual: '+String.prototype.substring.hasOwnProperty('length'));
+  $ERROR('#1: String.prototype.substring.hasOwnProperty(\'length\') return true. Actual: '+String.prototype.substring.hasOwnProperty('length'));
 }
 //
 //////////////////////////////////////////////////////////////////////////////
 
 var __obj = String.prototype.substring.length;
 
-String.prototype.substring.length = function(){return "shifted";};
+verifyNotWritable(String.prototype.substring, "length", null, function(){return "shifted";});
 
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#2

@@ -1,8 +1,5 @@
 // Copyright (c) 2012 Ecma International.  All rights reserved.
-// Ecma International makes this code available under the terms and conditions set
-// forth on http://hg.ecmascript.org/tests/test262/raw-file/tip/LICENSE (the
-// "Use Terms").   Any redistribution of this code must retain the above
-// copyright and this notice and otherwise comply with the Use Terms.
+// This code is governed by the BSD license found in the LICENSE file.
 
 /*---
 es5id: 15.2.3.6-2-48
@@ -10,10 +7,8 @@ description: >
     Object.defineProperty - an inherited toString method  is invoked
     when 'P' is an object with an own valueOf and an inherited
     toString methods
-includes: [runTestCase.js]
 ---*/
 
-function testcase() {
         var obj = {};
         var toStringAccessed = false;
         var valueOfAccessed = false;
@@ -36,6 +31,6 @@ function testcase() {
 
         Object.defineProperty(obj, child, {});
 
-        return obj.hasOwnProperty("test") && !valueOfAccessed && toStringAccessed;
-    }
-runTestCase(testcase);
+assert(obj.hasOwnProperty("test"), 'obj.hasOwnProperty("test") !== true');
+assert.sameValue(valueOfAccessed, false, 'valueOfAccessed');
+assert(toStringAccessed, 'toStringAccessed !== true');

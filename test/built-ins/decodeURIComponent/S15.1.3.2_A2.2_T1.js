@@ -5,19 +5,18 @@
 info: If B1 = 0xxxxxxxx ([0x00 - 0x7F]), return B1
 es5id: 15.1.3.2_A2.2_T1
 description: Complex tests, use RFC 3629
-includes: [Test262Error.js]
 ---*/
 
-errorCount = 0;
-count = 0;
+var errorCount = 0;
+var count = 0;
 var indexP;
 var indexO = 0;
-for (indexB1 = 0x00; indexB1 <= 0x7F; indexB1++) {       
+for (var indexB1 = 0x00; indexB1 <= 0x7F; indexB1++) {
   count++;
   var hexB1 = decimalToHexString(indexB1);  
   var index = indexB1;  
   try {
-    hex = String.fromCharCode(index);
+    var hex = String.fromCharCode(index);
     if (decodeURIComponent("%" + hexB1.substring(2)) === hex) continue;
   } catch (e) {
     if (e instanceof Test262Error) throw e;

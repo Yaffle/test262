@@ -1,18 +1,12 @@
 // Copyright (c) 2012 Ecma International.  All rights reserved.
-// Ecma International makes this code available under the terms and conditions set
-// forth on http://hg.ecmascript.org/tests/test262/raw-file/tip/LICENSE (the
-// "Use Terms").   Any redistribution of this code must retain the above
-// copyright and this notice and otherwise comply with the Use Terms.
+// This code is governed by the BSD license found in the LICENSE file.
 
 /*---
 es5id: 15.4.4.21-9-c-ii-17
 description: >
     Array.prototype.reduce - 'accumulator' used for current iteration
     is the result of previous iteration on an Array
-includes: [runTestCase.js]
 ---*/
-
-function testcase() {
 
         var result = true;
         var accessed = false;
@@ -27,6 +21,6 @@ function testcase() {
         }
 
         [11, 12, 13].reduce(callbackfn, 1);
-        return result && accessed;
-    }
-runTestCase(testcase);
+
+assert(result, 'result !== true');
+assert(accessed, 'accessed !== true');

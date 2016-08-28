@@ -1,8 +1,5 @@
 // Copyright (c) 2012 Ecma International.  All rights reserved.
-// Ecma International makes this code available under the terms and conditions set
-// forth on http://hg.ecmascript.org/tests/test262/raw-file/tip/LICENSE (the
-// "Use Terms").   Any redistribution of this code must retain the above
-// copyright and this notice and otherwise comply with the Use Terms.
+// This code is governed by the BSD license found in the LICENSE file.
 
 /*---
 info: >
@@ -16,11 +13,8 @@ description: >
     Initialize array using ElementList (ElementList , Elisionopt
     AssignmentExpression) when index property (read-only) exists in
     Array.prototype (step 6)
-includes: [runTestCase.js]
 ---*/
 
-function testcase() {
-        try {
             Object.defineProperty(Array.prototype, "1", {
                 value: 100,
                 writable: false,
@@ -28,9 +22,5 @@ function testcase() {
             });
             var arr = [101, 12];
 
-            return arr.hasOwnProperty("1") && arr[1] === 12;
-        } finally {
-            delete Array.prototype[1];
-        }
-    }
-runTestCase(testcase);
+assert(arr.hasOwnProperty("1"), 'arr.hasOwnProperty("1") !== true');
+assert.sameValue(arr[1], 12, 'arr[1]');

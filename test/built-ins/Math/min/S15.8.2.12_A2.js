@@ -10,13 +10,10 @@ description: >
 ---*/
 
 // CHECK#1
-if (!isNaN(Math.min(NaN)))
-{
-	$ERROR("#1: 'isNaN(Math.min(NaN)) === false");
-}
+assert.sameValue(Math.min(NaN), NaN, "NaN");
 
 // CHECK#2
-vals = new Array();
+var vals = new Array();
 vals[0] = -Infinity;
 vals[1] = -0.000000000000001;
 vals[2] = -0;
@@ -24,26 +21,27 @@ vals[3] = +0
 vals[4] = 0.000000000000001;
 vals[5] = +Infinity;
 vals[6] = NaN;
-valnum = 7;
+var valnum = 7;
 
-args = new Array();
-for (i = 0; i <= 1; i++)
+var args = new Array();
+for (var i = 0; i <= 1; i++)
 {
 	args[i] = NaN;
-	for (j = 0; j < valnum; j++)
+	for (var j = 0; j < valnum; j++)
 	{
 		args[1-i] = vals[j];
-		if (!isNaN(Math.min(args[0], args[1])))
-		{
-			$ERROR("#2: 'isNaN(Math.min(" + args[0] + ", " + args[1] + ")) === false");
-		}	
+		assert.sameValue(
+			Math.min(args[0], args[1]),
+			NaN,
+			"min(" + args[0] + ", " + args[1] + ")"
+		);
 	}
 }
 
 // CHECK #3
 var k = 1;
 var l = 2;
-for (i = 0; i <= 2; i++)
+for (var i = 0; i <= 2; i++)
 {
 	args[i] = NaN;
 	if (i === 1)
@@ -53,16 +51,17 @@ for (i = 0; i <= 2; i++)
 	{
 	 	l = 1;	
 	}
-	for (j = 0; j < valnum; j++)
+	for (var j = 0; j < valnum; j++)
 	{
-		for (jj = 0; jj < valnum; jj++)
+		for (var jj = 0; jj < valnum; jj++)
 		{
 			args[k] = vals[j];
 			args[l] = vals[jj];
-			if (!isNaN(Math.min(args[0], args[1], args[2])))
-			{
-				$ERROR("#3: 'isNaN(Math.min(" + args[0] + ", " + args[1] + ", " + args[2] + ")) === false");
-			}	
+			assert.sameValue(
+				Math.min(args[0], args[1], args[2]),
+				NaN,
+				"min(" + args[0] + ", " + args[1] + ", " + args[2] + ")"
+			);
 		}
 	}
 }

@@ -1,8 +1,5 @@
 // Copyright (c) 2012 Ecma International.  All rights reserved.
-// Ecma International makes this code available under the terms and conditions set
-// forth on http://hg.ecmascript.org/tests/test262/raw-file/tip/LICENSE (the
-// "Use Terms").   Any redistribution of this code must retain the above
-// copyright and this notice and otherwise comply with the Use Terms.
+// This code is governed by the BSD license found in the LICENSE file.
 
 /*---
 es5id: 15.2.3.6-4-360-6
@@ -11,10 +8,8 @@ description: >
     attributes are [[Writable]]: false, [[Enumerable]]: true,
     [[Configurable]]: true to an accessor property, 'O' is an
     Arguments object (8.12.9 - step 9.b.i)
-includes: [runTestCase.js]
 ---*/
 
-function testcase() {
         var obj = (function () {
             return arguments;
         }());
@@ -35,8 +30,10 @@ function testcase() {
         });
         var desc2 = Object.getOwnPropertyDescriptor(obj, "0");
 
-        return desc1.hasOwnProperty("value") && desc2.hasOwnProperty("get") &&
-            desc2.enumerable === true && desc2.configurable === true &&
-            obj[0] === 20 && typeof desc2.set === "undefined" && desc2.get === getFunc;
-    }
-runTestCase(testcase);
+assert(desc1.hasOwnProperty("value"), 'desc1.hasOwnProperty("value") !== true');
+assert(desc2.hasOwnProperty("get"), 'desc2.hasOwnProperty("get") !== true');
+assert.sameValue(desc2.enumerable, true, 'desc2.enumerable');
+assert.sameValue(desc2.configurable, true, 'desc2.configurable');
+assert.sameValue(obj[0], 20, 'obj[0]');
+assert.sameValue(typeof desc2.set, "undefined", 'typeof desc2.set');
+assert.sameValue(desc2.get, getFunc, 'desc2.get');

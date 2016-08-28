@@ -1,17 +1,10 @@
 // Copyright (c) 2012 Ecma International.  All rights reserved.
-// Ecma International makes this code available under the terms and conditions set
-// forth on http://hg.ecmascript.org/tests/test262/raw-file/tip/LICENSE (the
-// "Use Terms").   Any redistribution of this code must retain the above
-// copyright and this notice and otherwise comply with the Use Terms.
+// This code is governed by the BSD license found in the LICENSE file.
 
 /*---
 es5id: 10.4.3-1-5-s
-description: this is not coerced to an object in strict mode (function)
-flags: [onlyStrict]
-includes: [runTestCase.js]
+description: this is not coerced to an object (function)
 ---*/
-
-function testcase() {
 
   function foo()
   {
@@ -28,6 +21,5 @@ function testcase() {
   {
   }
 
-  return foo.call(foobar) === 'function' && bar.call(foobar) === 'function';
- }
-runTestCase(testcase);
+assert.sameValue(foo.call(foobar), 'function', 'foo.call(foobar)');
+assert.sameValue(bar.call(foobar), 'function', 'bar.call(foobar)');

@@ -9,20 +9,20 @@ es5id: 15.5.4.17_A10
 description: >
     Checking if varying the String.prototype.toLocaleLowerCase.length
     property fails
-includes: [$FAIL.js]
+includes: [propertyHelper.js]
 ---*/
 
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#1
 if (!(String.prototype.toLocaleLowerCase.hasOwnProperty('length'))) {
-  $FAIL('#1: String.prototype.toLocaleLowerCase.hasOwnProperty(\'length\') return true. Actual: '+String.prototype.toLocaleLowerCase.hasOwnProperty('length'));
+  $ERROR('#1: String.prototype.toLocaleLowerCase.hasOwnProperty(\'length\') return true. Actual: '+String.prototype.toLocaleLowerCase.hasOwnProperty('length'));
 }
 //
 //////////////////////////////////////////////////////////////////////////////
 
-__obj = String.prototype.toLocaleLowerCase.length;
+var __obj = String.prototype.toLocaleLowerCase.length;
 
-String.prototype.toLocaleLowerCase.length = function(){return "shifted";};
+verifyNotWritable(String.prototype.toLocaleLowerCase, "length", null, function(){return "shifted";});
 
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#2

@@ -9,18 +9,17 @@ es5id: 15.2.4.6_A10
 description: >
     Checking if varying the Object.prototype.isPrototypeOf.length
     property fails
-flags: [noStrict]
-includes: [$FAIL.js]
+includes: [propertyHelper.js]
 ---*/
 
 //CHECK#1
 if (!(Object.prototype.isPrototypeOf.hasOwnProperty('length'))) {
-  $FAIL('#1: the Object.prototype.isPrototypeOf has length property');
+  $ERROR('#1: the Object.prototype.isPrototypeOf has length property');
 }
 
 var obj = Object.prototype.isPrototypeOf.length;
 
-Object.prototype.isPrototypeOf.length = function(){return "shifted";};
+verifyNotWritable(Object.prototype.isPrototypeOf, "length", null, function(){return "shifted";});
 
 //CHECK#2
 if (Object.prototype.isPrototypeOf.length !== obj) {

@@ -1,20 +1,16 @@
 // Copyright (c) 2012 Ecma International.  All rights reserved.
-// Ecma International makes this code available under the terms and conditions set
-// forth on http://hg.ecmascript.org/tests/test262/raw-file/tip/LICENSE (the
-// "Use Terms").   Any redistribution of this code must retain the above
-// copyright and this notice and otherwise comply with the Use Terms.
+// This code is governed by the BSD license found in the LICENSE file.
 
 /*---
 es5id: 10.4.3-1-17-s
 description: Strict Mode - checking 'this' (eval used within strict mode)
 flags: [onlyStrict]
-includes:
-    - runTestCase.js
-    - fnGlobalObject.js
 ---*/
 
+var global = this;
+
 function testcase() {
-"use strict";
-return (eval("typeof this") === "undefined") && (eval("this") !== fnGlobalObject());
+  assert.sameValue(eval("typeof this"), "undefined", 'eval("typeof this")');
+  assert.notSameValue(eval("this"), global, 'eval("this")');
 }
-runTestCase(testcase);
+testcase();

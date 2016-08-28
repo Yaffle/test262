@@ -1,40 +1,33 @@
 // Copyright (c) 2012 Ecma International.  All rights reserved.
-// Ecma International makes this code available under the terms and conditions set
-// forth on http://hg.ecmascript.org/tests/test262/raw-file/tip/LICENSE (the
-// "Use Terms").   Any redistribution of this code must retain the above
-// copyright and this notice and otherwise comply with the Use Terms.
+// This code is governed by the BSD license found in the LICENSE file.
 
 /*---
 es5id: 15.2.3.7-2-18
 description: >
     Object.defineProperties - argument 'Properties' is the global
     object
-includes:
-    - runTestCase.js
-    - fnGlobalObject.js
 ---*/
 
-function testcase() {
-
+var global = this;
         var obj = {};
         var result = false;
 
         try {
-            Object.defineProperty(fnGlobalObject(), "prop", {
+            Object.defineProperty(this, "prop", {
                 get: function () {
-                    result = (this === fnGlobalObject());
+                    result = (this === global);
                     return {};
                 },
                 enumerable: true,
 				configurable:true
             });
 
-            Object.defineProperties(obj, fnGlobalObject());
-            return result;
+            Object.defineProperties(obj, this);
         } catch (e) {
-            return (e instanceof TypeError);
+            if (!(e instanceof TypeError)) throw e;
+            result = true;
         } finally {
-            delete fnGlobalObject().prop;
+            delete this.prop;
         }
-    }
-runTestCase(testcase);
+
+assert(result, 'result !== true');

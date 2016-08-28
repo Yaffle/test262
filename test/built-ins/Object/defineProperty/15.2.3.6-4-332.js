@@ -1,8 +1,5 @@
 // Copyright (c) 2012 Ecma International.  All rights reserved.
-// Ecma International makes this code available under the terms and conditions set
-// forth on http://hg.ecmascript.org/tests/test262/raw-file/tip/LICENSE (the
-// "Use Terms").   Any redistribution of this code must retain the above
-// copyright and this notice and otherwise comply with the Use Terms.
+// This code is governed by the BSD license found in the LICENSE file.
 
 /*---
 es5id: 15.2.3.6-4-332
@@ -10,10 +7,8 @@ description: >
     ES5 Attributes - success to update the data property ([[Writable]]
     is true, [[Enumerable]] is true, [[Configurable]] is true) to an
     accessor property
-includes: [runTestCase.js]
 ---*/
 
-function testcase() {
         var obj = {};
 
         Object.defineProperty(obj, "prop", {
@@ -32,6 +27,5 @@ function testcase() {
         });
         var desc2 = Object.getOwnPropertyDescriptor(obj, "prop");
 
-        return desc1.hasOwnProperty("value") && desc2.get === getFunc;
-    }
-runTestCase(testcase);
+assert(desc1.hasOwnProperty("value"), 'desc1.hasOwnProperty("value") !== true');
+assert.sameValue(desc2.get, getFunc, 'desc2.get');

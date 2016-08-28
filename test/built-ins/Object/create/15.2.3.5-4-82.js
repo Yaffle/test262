@@ -1,18 +1,12 @@
 // Copyright (c) 2012 Ecma International.  All rights reserved.
-// Ecma International makes this code available under the terms and conditions set
-// forth on http://hg.ecmascript.org/tests/test262/raw-file/tip/LICENSE (the
-// "Use Terms").   Any redistribution of this code must retain the above
-// copyright and this notice and otherwise comply with the Use Terms.
+// This code is governed by the BSD license found in the LICENSE file.
 
 /*---
 es5id: 15.2.3.5-4-82
 description: >
     Object.create - 'enumerable' property of one property in
     'Properties' is an empty string (8.10.5 step 3.b)
-includes: [runTestCase.js]
 ---*/
-
-function testcase() {
 
         var accessed = false;
 
@@ -26,6 +20,6 @@ function testcase() {
                 accessed = true;
             }
         }
-        return !accessed && newObj.hasOwnProperty("prop");
-    }
-runTestCase(testcase);
+
+assert.sameValue(accessed, false, 'accessed');
+assert(newObj.hasOwnProperty("prop"), 'newObj.hasOwnProperty("prop") !== true');

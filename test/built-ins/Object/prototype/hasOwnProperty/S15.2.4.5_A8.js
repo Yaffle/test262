@@ -9,12 +9,11 @@ es5id: 15.2.4.5_A8
 description: >
     Checking if enumerating the Object.prototype.hasOwnProperty.length
     property fails
-includes: [$FAIL.js]
 ---*/
 
 //CHECK#0
 if (!(Object.prototype.hasOwnProperty.hasOwnProperty('length'))) {
-  $FAIL('#0: the Object.prototype.hasOwnProperty has length property.');
+  $ERROR('#0: the Object.prototype.hasOwnProperty has length property.');
 }
 
 
@@ -24,7 +23,7 @@ if (Object.prototype.hasOwnProperty.propertyIsEnumerable('length')) {
 }
 
 // CHECK#2
-for (p in Object.prototype.hasOwnProperty){
+for (var p in Object.prototype.hasOwnProperty){
   if (p==="length")
         $ERROR('#2: the Object.prototype.hasOwnProperty.length property has the attributes DontEnum');
 }
