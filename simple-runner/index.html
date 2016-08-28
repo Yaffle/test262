@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<script src="list.json"></script>
+<script>
+"use strict";
+
+var baseURL = "../test/built-ins/";
+var iframe = undefined;
+var queue = [];
+
+window.setInterval(function () {
+  document.getElementById("queue").innerHTML = queue.length;
+}, 500);
+
+var logContainer = undefined;
+var log = function (message, className) {
+  var div = document.createElement("div");
+  div.innerHTML = message;
+  div.className = className;
+  logContainer.appendChild(div);
+};
+
+window.onmessage = function (event) {
+  event = event || window.event;
+  if (event.data === "done") {
+    log("done: " + "<a href=\"" + (baseURL + queue[0]) + "\" target=\"_blank\">" + queue[0] + "</a>", "ok");
+    queue.shift();
+    if (queue.length > 0) {
+      iframe.src = "iframe.html#" + encodeURIComponent(baseURL + queue[0]);
+    }
+  } else {
+    log(event.data, "");
+  }
+};
+
+window.setTimeout(function () {
+  logContainer = document.getElementById("log");
+
+  iframe = document.createElement("iframe");
+  iframe.setAttribute("sandbox", "allow-scripts allow-same-origin");
+  iframe.style.visibility = "hidden";
+  iframe.style.width = "0px";
+  iframe.style.height = "0px";
+  iframe.src = "iframe.html#";
+  document.documentElement.appendChild(iframe);
+
+  var runTest = function (file) {
+    queue.push(file);
+    if (queue.length === 1) {
+      iframe.src = "iframe.html#" + encodeURIComponent(baseURL + file);
+    }
+  };
+  
+  var getCategory = function (file) {
+    var x = file.split("/").shift();
+    if (x === "MapIteratorPrototype") {
+      x = "Map";
+    }
+    if (x === "ArrayBuffer" || x === "DataView" || x === "TypedArray") {
+      x = "TypedArrays";
+    }
+    if (x === "ArrayIteratorPrototype") {
+      x = "Array";
+    }
+    if (x === "AsyncFunction" || x === "GeneratorPrototype" || x === "GeneratorFunction") {
+      x = "Function";
+    }
+    if (x === "isFinite" || x === "isNaN" || x === "Infinity" || x === "parseFloat" || x === "parseInt" || x === "NaN") {
+      x = "Number";
+    }
+    if (x === "StringIteratorPrototype") {
+      x = "String";
+    }
+    if (x === "undefined" || x === "encodeURI" || x === "encodeURIComponent" || x === "decodeURI" || x === "decodeURIComponent" ) {
+      x = "global";
+    }
+    if (x === "ThrowTypeError" || x === "NativeErrors") {
+      x = "Error";
+    }
+    if (x === "SetIteratorPrototype") {
+      x = "Set";
+    }
+    if (x === "IteratorPrototype") {
+      x = "Array";
+    }
+    return x;
+  };
+
+  var listbox = document.getElementById("listbox");
+  var html = "";
+  html += "<legend>Select categories to test:</legend>"
+  var names = {};
+  for (var i = 0; i < files.length; i += 1) {
+    var name = getCategory(files[i]);
+    if (names[name] == undefined) {
+      names[name] = 1;
+      html += "<div><label><input type=\"checkbox\" id=\"checkbox-" + name + "\" value=\"" + name + "\"> " + name + "</label></div>";
+    }
+  }
+  listbox.innerHTML = html;
+  
+  var isSelected = function (file) {
+    var name = getCategory(file);
+    return document.getElementById("checkbox-" + name).checked;
+  };
+
+  var runButton = document.getElementById("runButton");
+  runButton.onclick = function () {
+    for (var i = 0; i < files.length; i += 1) {
+      if (isSelected(files[i])) {
+        runTest(files[i]);
+      }
+    }
+  };
+  
+}, 0);
+
+</script>
+<style>
+.ok > a,
+.ok {
+  color: silver;
+}
+#flexbox {
+  display: flex;
+}
+
+</style>
+</head>
+<body>
+  <button id="runButton">Go <span id="queue"></span></button>
+  <div id="flexbox">
+    <fieldset id="listbox"></fieldset>
+    <div id="log"></div>
+  </div>
+</body>
+</html>
