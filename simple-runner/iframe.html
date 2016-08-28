@@ -149,7 +149,7 @@ if (Object.freeze != undefined) {
 }
 
 window.onhashchange = function () {
-  var src = decodeURIComponent(location.hash.slice(1) + "x");
+  var src = decodeURIComponent(location.hash.slice(1));
   var script = document.createElement("script");
   script.src = src;
   document.querySelector("head").appendChild(script);
