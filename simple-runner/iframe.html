@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<script>
+"use strict";
+
+function Test262Error(message) {
+    this.message = message || "";
+}
+
+Test262Error.prototype.toString = function () {
+    return "Test262Error: " + this.message;
+};
+
+var $ERROR;
+$ERROR = function $ERROR(message) {
+    throw new Test262Error(message);
+};
+
+function testFailed(message) {
+    $ERROR(message);
+}
+
+function assert(mustBeTrue, message) {
+    if (mustBeTrue === true) {
+        return;
+    }
+
+    if (message === undefined) {
+        message = 'Expected true but got ' + String(mustBeTrue);
+    }
+    $ERROR(message);
+}
+
+assert._isSameValue = function (a, b) {
+    if (a === b) {
+        // Handle +/-0 vs. -/+0
+        return a !== 0 || 1 / a === 1 / b;
+    }
+
+    // Handle NaN vs. NaN
+    return a !== a && b !== b;
+};
+
+assert.sameValue = function (actual, expected, message) {
+    if (assert._isSameValue(actual, expected)) {
+        return;
+    }
+
+    if (message === undefined) {
+        message = '';
+    } else {
+        message += ' ';
+    }
+
+    message += 'Expected SameValue(«' + String(actual) + '», «' + String(expected) + '») to be true';
+
+    $ERROR(message);
+};
+
+assert.notSameValue = function (actual, unexpected, message) {
+    if (!assert._isSameValue(actual, unexpected)) {
+        return;
+    }
+
+    if (message === undefined) {
+        message = '';
+    } else {
+        message += ' ';
+    }
+
+    message += 'Expected SameValue(«' + String(actual) + '», «' + String(unexpected) + '») to be false';
+
+    $ERROR(message);
+};
+
+assert.throws = function (expectedErrorConstructor, func, message) {
+    if (typeof func !== "function") {
+        $ERROR('assert.throws requires two arguments: the error constructor ' +
+            'and a function to run');
+        return;
+    }
+    if (message === undefined) {
+        message = '';
+    } else {
+        message += ' ';
+    }
+
+    try {
+        func();
+    } catch (thrown) {
+        if (typeof thrown !== 'object' || thrown === null) {
+            message += 'Thrown value was not an object!';
+            $ERROR(message);
+        } else if (thrown.constructor !== expectedErrorConstructor) {
+            message += 'Expected a ' + expectedErrorConstructor.name + ' but got a ' + thrown.constructor.name;
+            $ERROR(message);
+        }
+        return;
+    }
+
+    message += 'Expected a ' + expectedErrorConstructor.name + ' to be thrown but no exception was thrown at all';
+    $ERROR(message);
+};
+
+// ignore
+function verifyWritable() {
+  return true;
+}
+
+function verifyConfigurable() {
+  return true;
+}
+
+function verifyNotEnumerable() {
+  return true;
+}
+
+function verifyNotWritable() {
+  return true;
+}
+
+function verifyNotConfigurable() {
+  return true;
+}
+
+function Test262Error(message) {
+  this.message = message;
+  
+  window.parent.postMessage(message, "*");
+}
+
+Test262Error.prototype = Error.prototype;
+
+if (Object.freeze != undefined) {
+  Object.freeze(Math);
+  Object.freeze(Object);
+  Object.freeze(Object.prototype);
+  Object.freeze(Array);
+  Object.freeze(Array.prototype);
+  Object.freeze(String);
+  Object.freeze(String.prototype);
+  Object.freeze(Number);
+  Object.freeze(Number.prototype);
+  Object.freeze(Date);
+  Object.freeze(Date.prototype);
+}
+
+window.onhashchange = function () {
+  var src = decodeURIComponent(location.hash.slice(1));
+  var script = document.createElement("script");
+  script.src = src;
+  document.querySelector("head").appendChild(script);
+  if ("onload" in script) {
+    script.onload = function () {
+      window.parent.postMessage("done", "*");
+      script.parentNode.removeChild(script);
+    };
+  } else {
+    script.onreadystatechange = function () {
+      if (script.readyState === "complete" || script.readyState === "loaded") {
+        window.parent.postMessage("done", "*");
+        script.parentNode.removeChild(script);
+      }
+    };
+  }
+};
+
+window.setTimeout(function () {
+  window.parent.postMessage("done", "*");
+}, 0);
+
+</script>
+</head>
+<body>
+</body>
+</html>
