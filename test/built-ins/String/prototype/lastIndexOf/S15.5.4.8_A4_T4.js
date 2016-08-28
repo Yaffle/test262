@@ -7,7 +7,6 @@ info: >
     Then Call ToString(searchString) and Call ToNumber(position)
 es5id: 15.5.4.8_A4_T4
 description: Override toString and valueOf functions, and they throw exceptions
-includes: [$FAIL.js]
 ---*/
 
 var __obj = {toString:function(){throw "intostr";}};
@@ -17,15 +16,13 @@ Number.prototype.lastIndexOf=String.prototype.lastIndexOf;
 
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#1
-with(__instance){
     try {
-      var x = lastIndexOf(__obj, __obj2);
-      $FAIL('#1: var x = lastIndexOf(__obj, __obj2) lead to throwing exception');
+      var x = __instance.lastIndexOf(__obj, __obj2);
+      $ERROR('#1: var x = __instance.lastIndexOf(__obj, __obj2) lead to throwing exception');
     } catch (e) {
       if (e!=="intostr") {
         $ERROR('#1.1: Exception === "intostr". Actual: '+e);
       }
     }
-}
 //
 //////////////////////////////////////////////////////////////////////////////

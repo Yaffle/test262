@@ -7,20 +7,20 @@ es5id: 15.5.4.11_A10
 description: >
     Checking if varying the String.prototype.replace.length property
     fails
-includes: [$FAIL.js]
+includes: [propertyHelper.js]
 ---*/
 
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#1
 if (!(String.prototype.replace.hasOwnProperty('length'))) {
-  $FAIL('#1: String.prototype.replace.hasOwnProperty(\'length\') return true. Actual: '+String.prototype.replace.hasOwnProperty('length'));
+  $ERROR('#1: String.prototype.replace.hasOwnProperty(\'length\') return true. Actual: '+String.prototype.replace.hasOwnProperty('length'));
 }
 //
 //////////////////////////////////////////////////////////////////////////////
 
 var __obj = String.prototype.replace.length;
 
-String.prototype.replace.length = function(){return "shifted";};
+verifyNotWritable(String.prototype.replace, "length", null, function(){return "shifted";});
 
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#2

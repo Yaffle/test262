@@ -1,8 +1,5 @@
 // Copyright (c) 2012 Ecma International.  All rights reserved.
-// Ecma International makes this code available under the terms and conditions set
-// forth on http://hg.ecmascript.org/tests/test262/raw-file/tip/LICENSE (the
-// "Use Terms").   Any redistribution of this code must retain the above
-// copyright and this notice and otherwise comply with the Use Terms.
+// This code is governed by the BSD license found in the LICENSE file.
 
 /*---
 es5id: 10.6-10-c-ii-1-s
@@ -10,16 +7,12 @@ description: >
     arguments[i] remains same after changing actual parameters in
     strict mode
 flags: [onlyStrict]
-includes: [runTestCase.js]
 ---*/
 
-function testcase() {
   function foo(a,b,c)
   {
-    'use strict';
     a = 1; b = 'str'; c = 2.1;
     return (arguments[0] === 10 && arguments[1] === 'sss' && arguments[2] === 1);
   }
-  return foo(10, 'sss', 1);
- }
-runTestCase(testcase);
+
+assert(foo(10, 'sss', 1), 'foo(10, "sss", 1) !== true');

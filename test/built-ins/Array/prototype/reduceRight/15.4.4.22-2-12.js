@@ -1,8 +1,5 @@
 // Copyright (c) 2012 Ecma International.  All rights reserved.
-// Ecma International makes this code available under the terms and conditions set
-// forth on http://hg.ecmascript.org/tests/test262/raw-file/tip/LICENSE (the
-// "Use Terms").   Any redistribution of this code must retain the above
-// copyright and this notice and otherwise comply with the Use Terms.
+// This code is governed by the BSD license found in the LICENSE file.
 
 /*---
 es5id: 15.4.4.22-2-12
@@ -10,10 +7,7 @@ description: >
     Array.prototype.reduceRight - 'length' is own accessor property
     without a get function that overrides an inherited accessor
     property
-includes: [runTestCase.js]
 ---*/
-
-function testcase() {
 
         var accessed = false;
 
@@ -22,7 +16,6 @@ function testcase() {
             return typeof obj.length === "undefined";
         }
 
-        try {
             Object.defineProperty(Object.prototype, "length", {
                 get: function () {
                     return 2;
@@ -36,9 +29,5 @@ function testcase() {
                 configurable: true
             });
 
-            return Array.prototype.reduceRight.call(obj, callbackfn, 11) === 11 && !accessed;
-        } finally {
-            delete Object.prototype.length;
-        }
-    }
-runTestCase(testcase);
+assert.sameValue(Array.prototype.reduceRight.call(obj, callbackfn, 11), 11, 'Array.prototype.reduceRight.call(obj, callbackfn, 11)');
+assert.sameValue(accessed, false, 'accessed');

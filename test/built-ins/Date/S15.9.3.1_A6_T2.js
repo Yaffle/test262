@@ -7,57 +7,45 @@ info: >
     with supplied "undefined" argument should be NaN
 es5id: 15.9.3.1_A6_T2
 description: 3 arguments, (year, month, date)
-includes: [$FAIL.js]
 ---*/
 
 function DateValue(year, month, date, hours, minutes, seconds, ms){
   return new Date(year, month, date, hours, minutes, seconds, ms).valueOf();
 }
 
-if (!isNaN(DateValue(1899, 11, 31))) {
-  $FAIL("#1: The value should be NaN");
-}
+var x;
+x = DateValue(1899, 11, 31);
+assert.sameValue(x, NaN, "(1899, 11, 31)");
 
-if (!isNaN(DateValue(1899, 12, 1))) {
-  $FAIL("#2: The value should be NaN");
-}
+x = DateValue(1899, 12, 1);
+assert.sameValue(x, NaN, "(1899, 12, 1)");
 
-if (!isNaN(DateValue(1900, 0, 1))) {
-  $FAIL("#3: The value should be NaN");
-}
+x = DateValue(1900, 0, 1);
+assert.sameValue(x, NaN, "(1900, 0, 1)");
 
-if (!isNaN(DateValue(1969, 11, 31))) {
-  $FAIL("#4: The value should be NaN");
-}
+x = DateValue(1969, 11, 31);
+assert.sameValue(x, NaN, "(1969, 11, 31)");
 
-if (!isNaN(DateValue(1969, 12, 1))) {
-  $FAIL("#5: The value should be NaN");
-}
+x = DateValue(1969, 12, 1);
+assert.sameValue(x, NaN, "(1969, 12, 1)");
 
-if (!isNaN(DateValue(1970, 0, 1))) {
-  $FAIL("#6: The value should be NaN");
-}
+x = DateValue(1970, 0, 1);
+assert.sameValue(x, NaN, "(1970, 0, 1)");
 
-if (!isNaN(DateValue(1999, 11, 31))) {
-  $FAIL("#7: The value should be NaN");
-}
+x = DateValue(1999, 11, 31);
+assert.sameValue(x, NaN, "(1999, 11, 31)");
 
-if (!isNaN(DateValue(1999, 12, 1))) {
-  $FAIL("#8: The value should be NaN");
-}
+x = DateValue(1999, 12, 1);
+assert.sameValue(x, NaN, "(1999, 12, 1)");
 
-if (!isNaN(DateValue(2000, 0, 1))) {
-  $FAIL("#9: The value should be NaN");
-}
+x = DateValue(2000, 0, 1);
+assert.sameValue(x, NaN, "(2000, 0, 1)");
 
-if (!isNaN(DateValue(2099, 11, 31))) {
-  $FAIL("#10: The value should be NaN");
-}
+x = DateValue(2099, 11, 31);
+assert.sameValue(x, NaN, "(2099, 11, 31)");
 
-if (!isNaN(DateValue(2099, 12, 1))) {
-  $FAIL("#11: The value should be NaN");
-}
+x = DateValue(2099, 12, 1);
+assert.sameValue(x, NaN, "(2099, 12, 1)");
 
-if (!isNaN(DateValue(2100, 0, 1))) {
-  $FAIL("#12: The value should be NaN");
-}
+x = DateValue(2100, 0, 1);
+assert.sameValue(x, NaN, "(2100, 0, 1)");

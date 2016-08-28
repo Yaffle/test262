@@ -9,12 +9,11 @@ es5id: 15.2.4.3_A8
 description: >
     Checking if enumerating the Object.prototype.toLocaleString.length
     property fails
-includes: [$FAIL.js]
 ---*/
 
 //CHECK#0
 if (!(Object.prototype.toLocaleString.hasOwnProperty('length'))) {
-  $FAIL('#0: the Object.prototype.toLocaleString has length property.');
+  $ERROR('#0: the Object.prototype.toLocaleString has length property.');
 }
 
 
@@ -24,7 +23,7 @@ if (Object.prototype.toLocaleString.propertyIsEnumerable('length')) {
 }
 
 // CHECK#2
-for (p in Object.prototype.toLocaleString){
+for (var p in Object.prototype.toLocaleString){
   if (p==="length")
         $ERROR('#2: the Object.prototype.toLocaleString.length property has the attributes DontEnum');
 }

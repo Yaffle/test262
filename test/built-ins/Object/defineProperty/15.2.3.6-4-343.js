@@ -1,8 +1,5 @@
 // Copyright (c) 2012 Ecma International.  All rights reserved.
-// Ecma International makes this code available under the terms and conditions set
-// forth on http://hg.ecmascript.org/tests/test262/raw-file/tip/LICENSE (the
-// "Use Terms").   Any redistribution of this code must retain the above
-// copyright and this notice and otherwise comply with the Use Terms.
+// This code is governed by the BSD license found in the LICENSE file.
 
 /*---
 es5id: 15.2.3.6-4-343
@@ -10,10 +7,8 @@ description: >
     ES5 Attributes - success to update [[Writable]] attribute of data
     property ([[Writable]] is true, [[Enumerable]] is false,
     [[Configurable]] is true) to different value
-includes: [runTestCase.js]
 ---*/
 
-function testcase() {
         var obj = {};
 
         Object.defineProperty(obj, "prop", {
@@ -30,6 +25,7 @@ function testcase() {
         });
         var desc2 = Object.getOwnPropertyDescriptor(obj, "prop");
 
-        return propertyDefineCorrect && desc1.writable === true && obj.prop === 2010 && desc2.writable === false;
-    }
-runTestCase(testcase);
+assert(propertyDefineCorrect, 'propertyDefineCorrect !== true');
+assert.sameValue(desc1.writable, true, 'desc1.writable');
+assert.sameValue(obj.prop, 2010, 'obj.prop');
+assert.sameValue(desc2.writable, false, 'desc2.writable');

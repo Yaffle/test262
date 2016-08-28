@@ -1,8 +1,5 @@
 // Copyright (c) 2012 Ecma International.  All rights reserved.
-// Ecma International makes this code available under the terms and conditions set
-// forth on http://hg.ecmascript.org/tests/test262/raw-file/tip/LICENSE (the
-// "Use Terms").   Any redistribution of this code must retain the above
-// copyright and this notice and otherwise comply with the Use Terms.
+// This code is governed by the BSD license found in the LICENSE file.
 
 /*---
 info: >
@@ -13,21 +10,16 @@ es5id: 15.2.3.6-4-4
 description: >
     Object.defineProperty defines a data property if given a generic
     desc(8.12.9 step 4.a.i)
-includes: [runTestCase.js]
 ---*/
 
-function testcase() {
   var o = {};
   
   var desc = {};
   Object.defineProperty(o, "foo", desc);
 
   var propDesc = Object.getOwnPropertyDescriptor(o, "foo");
-  if (propDesc.value        === undefined &&  // this is the value that was set
-      propDesc.writable     === false &&      // false by default
-      propDesc.enumerable   === false &&      // false by default
-      propDesc.configurable === false) {      // false by default
-    return true;
-  }
- }
-runTestCase(testcase);
+
+assert.sameValue(propDesc.value, undefined, 'propDesc.value');            // undefined by default
+assert.sameValue(propDesc.writable, false, 'propDesc.writable');          // false by default
+assert.sameValue(propDesc.enumerable, false, 'propDesc.enumerable');      // false by default
+assert.sameValue(propDesc.configurable, false, 'propDesc.configurable');  // false by default

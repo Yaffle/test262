@@ -1,8 +1,5 @@
 // Copyright (c) 2012 Ecma International.  All rights reserved.
-// Ecma International makes this code available under the terms and conditions set
-// forth on http://hg.ecmascript.org/tests/test262/raw-file/tip/LICENSE (the
-// "Use Terms").   Any redistribution of this code must retain the above
-// copyright and this notice and otherwise comply with the Use Terms.
+// This code is governed by the BSD license found in the LICENSE file.
 
 /*---
 es5id: 15.4.4.21-7-7
@@ -10,10 +7,8 @@ description: >
     Array.prototype.reduce returns initialValue if 'length' is 0 and
     initialValue is present (subclassed Array, length overridden with
     obj w/o valueOf (toString))
-includes: [runTestCase.js]
 ---*/
 
-function testcase() {
   foo.prototype = new Array(1, 2, 3);
   function foo() {}
   var f = new foo();
@@ -28,10 +23,4 @@ function testcase() {
   // resulting string to a number.
 
   function cb(){}
-  try {
-    if(f.reduce(cb,1) === 1)
-      return true;
-  }
-  catch (e) {  }  
- }
-runTestCase(testcase);
+assert.sameValue(f.reduce(cb,1), 1, 'f.reduce(cb,1)');

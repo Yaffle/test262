@@ -7,13 +7,20 @@ info: >
     attributes
 es5id: 15.9.4.1_A1_T2
 description: Checking DontDelete attribute
-includes: [$FAIL.js]
+includes: [propertyHelper.js]
 ---*/
 
-if (delete Date.prototype !== false) {
-  $ERROR('#1: The Date.prototype property has the attributes DontDelete');
+verifyNotConfigurable(Date, "prototype");
+
+try {
+  if (delete Date.prototype !== false) {
+    $ERROR('#1: The Date.prototype property has the attributes DontDelete');
+  }
+} catch (e) {
+  if (e instanceof Test262Error) throw e;
+  assert(e instanceof TypeError);
 }
 
 if (!Date.hasOwnProperty('prototype')) {
-  $FAIL('#2: The Date.prototype property has the attributes DontDelete');
+  $ERROR('#2: The Date.prototype property has the attributes DontDelete');
 }

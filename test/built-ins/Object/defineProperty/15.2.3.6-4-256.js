@@ -1,8 +1,5 @@
 // Copyright (c) 2012 Ecma International.  All rights reserved.
-// Ecma International makes this code available under the terms and conditions set
-// forth on http://hg.ecmascript.org/tests/test262/raw-file/tip/LICENSE (the
-// "Use Terms").   Any redistribution of this code must retain the above
-// copyright and this notice and otherwise comply with the Use Terms.
+// This code is governed by the BSD license found in the LICENSE file.
 
 /*---
 es5id: 15.2.3.6-4-256
@@ -13,45 +10,34 @@ description: >
     false, test TypeError is thrown if the [[Get]] field of 'desc' is
     present, and the [[Get]] field of 'desc' is an object and the
     [[Get]] attribute value of 'name' is undefined (15.4.5.1 step 4.c)
-includes: [runTestCase.js]
+includes: [propertyHelper.js]
 ---*/
 
-function testcase() {
-        var arrObj = [];
-        function getFunc() {
-            return 12;
-        }
+var arrObj = [];
+function getFunc() {
+    return 12;
+}
 
-        Object.defineProperty(arrObj, "1", {
-            get: getFunc
-        });
+Object.defineProperty(arrObj, "1", {
+    get: getFunc
+});
 
-        try {
-            Object.defineProperty(arrObj, "1", {
-                get: undefined
-            });
-            return false;
-        } catch (e) {
-            var hasProperty = arrObj.hasOwnProperty("1");
-            var desc = Object.getOwnPropertyDescriptor(arrObj, "1");
+try {
+    Object.defineProperty(arrObj, "1", {
+        get: undefined
+    });
+    $ERROR("Expected TypeError");
+} catch (e) {
+    assert(e instanceof TypeError);
+    assert(arrObj.hasOwnProperty("1"));
 
-            var verifyGet = arrObj[1] === getFunc();
+    var desc = Object.getOwnPropertyDescriptor(arrObj, "1");
 
-            var verifySet = desc.hasOwnProperty("set") && typeof desc.set === "undefined";
+    assert(arrObj[1] === getFunc());
+    assert(desc.hasOwnProperty("set") && typeof desc.set === "undefined");
 
-            var verifyEnumerable = false;
-            for (var p in arrObj) {
-                if (p === "1") {
-                    verifyEnumerable = true
-                }
-            }
+    verifyNotWritable(arrObj, "1");
 
-            var verifyConfigurable = false;
-            delete arrObj[1];
-            verifyConfigurable = arrObj.hasOwnProperty("1");
+    verifyNotConfigurable(arrObj, "1");
+}
 
-            return e instanceof TypeError && hasProperty && verifyGet &&
-                verifySet && !verifyEnumerable && verifyConfigurable;
-        }
-    }
-runTestCase(testcase);

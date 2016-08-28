@@ -9,20 +9,20 @@ es5id: 15.5.4.19_A10
 description: >
     Checking if varying the String.prototype.toLocaleUpperCase.length
     property fails
-includes: [$FAIL.js]
+includes: [propertyHelper.js]
 ---*/
 
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#1
 if (!(String.prototype.toLocaleUpperCase.hasOwnProperty('length'))) {
-  $FAIL('#1: String.prototype.toLocaleUpperCase.hasOwnProperty(\'length\') return true. Actual: '+String.prototype.toLocaleUpperCase.hasOwnProperty('length'));
+  $ERROR('#1: String.prototype.toLocaleUpperCase.hasOwnProperty(\'length\') return true. Actual: '+String.prototype.toLocaleUpperCase.hasOwnProperty('length'));
 }
 //
 //////////////////////////////////////////////////////////////////////////////
 
 var __obj = String.prototype.toLocaleUpperCase.length;
 
-String.prototype.toLocaleUpperCase.length = function(){return "shifted";};
+verifyNotWritable(String.prototype.toLocaleUpperCase, "length", null, function(){return "shifted";});
 
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#2

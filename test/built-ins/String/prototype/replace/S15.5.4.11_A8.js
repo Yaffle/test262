@@ -7,13 +7,12 @@ es5id: 15.5.4.11_A8
 description: >
     Checking if enumerating the String.prototype.replace.length
     property fails
-includes: [$FAIL.js]
 ---*/
 
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#0
 if (!(String.prototype.replace.hasOwnProperty('length'))) {
-  $FAIL('#0: String.prototype.replace.hasOwnProperty(\'length\') return true. Actual: '+String.prototype.replace.hasOwnProperty('length'));
+  $ERROR('#0: String.prototype.replace.hasOwnProperty(\'length\') return true. Actual: '+String.prototype.replace.hasOwnProperty('length'));
 }
 //
 //////////////////////////////////////////////////////////////////////////////
@@ -29,9 +28,9 @@ if (String.prototype.replace.propertyIsEnumerable('length')) {
 
 //////////////////////////////////////////////////////////////////////////////
 // CHECK#2
-count=0;
+var count=0;
 
-for (p in String.prototype.replace){
+for (var p in String.prototype.replace){
   if (p==="length") count++;
 }
 

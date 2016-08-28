@@ -1,20 +1,12 @@
 // Copyright (c) 2012 Ecma International.  All rights reserved.
-// Ecma International makes this code available under the terms and conditions set
-// forth on http://hg.ecmascript.org/tests/test262/raw-file/tip/LICENSE (the
-// "Use Terms").   Any redistribution of this code must retain the above
-// copyright and this notice and otherwise comply with the Use Terms.
+// This code is governed by the BSD license found in the LICENSE file.
 
 /*---
 es5id: 15.12.2-2-2
 description: >
     JSON.parse - parsing an object where property name starts with a
     null character
-includes: [runTestCase.js]
 ---*/
-
-function testcase() {
-
-        var result = true;
 
         var nullChars = new Array();
         nullChars[0] = '\"\u0000\"';
@@ -51,13 +43,7 @@ function testcase() {
         nullChars[31] = '\"\u001F\"';
 
         for (var index in nullChars) {
-            try {
+            assert.throws(SyntaxError, function() {
                 var obj = JSON.parse('{ ' + nullChars[index] + "name" + ' : "John" } ');
-                result = (result && false);
-            } catch (e) {
-                result = (result && (e instanceof SyntaxError));
-            }
+            });
         }
-        return result;
-    }
-runTestCase(testcase);

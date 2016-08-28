@@ -1,8 +1,5 @@
 // Copyright (c) 2012 Ecma International.  All rights reserved.
-// Ecma International makes this code available under the terms and conditions set
-// forth on http://hg.ecmascript.org/tests/test262/raw-file/tip/LICENSE (the
-// "Use Terms").   Any redistribution of this code must retain the above
-// copyright and this notice and otherwise comply with the Use Terms.
+// This code is governed by the BSD license found in the LICENSE file.
 
 /*---
 es5id: 15.12.3-11-21
@@ -10,10 +7,7 @@ description: >
     JSON.stringify - stringifying an object where property value is
     the union of all null character (The abstract operation
     Quote(value) step 2.c)
-includes: [runTestCase.js]
 ---*/
-
-function testcase() {
 
         var result = true;
 
@@ -56,6 +50,5 @@ function testcase() {
             var str = JSON.stringify({ "name": "\u0000\u0001\u0002\u0003\u0004\u0005\u0006\u0007\u0008\u0009\u000A\u000B\u000C\u000D\u000E\u000F\u0010\u0011\u0012\u0013\u0014\u0015\u0016\u0017\u0018\u0019\u001A\u001B\u001C\u001D\u001E\u001F" });
             result = (result && str.indexOf(expectedNullChars[index]) !== -1);
         }
-        return result;
-    }
-runTestCase(testcase);
+
+assert(result, 'result !== true');

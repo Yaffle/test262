@@ -1,8 +1,5 @@
 // Copyright (c) 2012 Ecma International.  All rights reserved.
-// Ecma International makes this code available under the terms and conditions set
-// forth on http://hg.ecmascript.org/tests/test262/raw-file/tip/LICENSE (the
-// "Use Terms").   Any redistribution of this code must retain the above
-// copyright and this notice and otherwise comply with the Use Terms.
+// This code is governed by the BSD license found in the LICENSE file.
 
 /*---
 es5id: 15.2.3.7-6-a-164
@@ -12,31 +9,29 @@ description: >
     of the length property, test the [[Writable]] attribute of the
     length property in 'O' is set as true before deleting properties
     with large index named (15.4.5.1 step 3.i.iii)
-includes: [runTestCase.js]
+includes: [propertyHelper.js]
 ---*/
 
-function testcase() {
 
-        var arr = [0, 1, 2];
-        var result = 0;
+var arr = [0, 1, 2];
+var result = 0;
 
-        try {
-            Object.defineProperty(arr, "1", {
-                configurable: false
-            });
+try {
+    Object.defineProperty(arr, "1", {
+        configurable: false
+    });
 
-            Object.defineProperties(arr, {
-                length: {
-                    value: 0,
-                    writable: false
-                }
-            });
-
-            return false;
-        } catch (e) {
-            result = (arr.length === 2);
-            arr.length = 10;
-            return (e instanceof TypeError) && result && arr.length === 2;
+    Object.defineProperties(arr, {
+        length: {
+            value: 0,
+            writable: false
         }
-    }
-runTestCase(testcase);
+    });
+
+    $ERROR("expected to throw TypeError")
+} catch (e) {
+    assert(e instanceof TypeError);
+    assert.sameValue(arr.length, 2);
+    verifyNotWritable(arr, "length");
+}
+

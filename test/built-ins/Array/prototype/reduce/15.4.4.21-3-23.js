@@ -1,18 +1,12 @@
 // Copyright (c) 2012 Ecma International.  All rights reserved.
-// Ecma International makes this code available under the terms and conditions set
-// forth on http://hg.ecmascript.org/tests/test262/raw-file/tip/LICENSE (the
-// "Use Terms").   Any redistribution of this code must retain the above
-// copyright and this notice and otherwise comply with the Use Terms.
+// This code is governed by the BSD license found in the LICENSE file.
 
 /*---
 es5id: 15.4.4.21-3-23
 description: >
     Array.prototype.reduce uses inherited valueOf method - 'length' is
     an object with an own toString and inherited valueOf methods
-includes: [runTestCase.js]
 ---*/
-
-function testcase() {
 
         var valueOfAccessed = false;
         var toStringAccessed = false;
@@ -44,6 +38,6 @@ function testcase() {
             length: child
         };
 
-        return Array.prototype.reduce.call(obj, callbackfn, 1) === true && valueOfAccessed && !toStringAccessed;
-    }
-runTestCase(testcase);
+assert.sameValue(Array.prototype.reduce.call(obj, callbackfn, 1), true, 'Array.prototype.reduce.call(obj, callbackfn, 1)');
+assert(valueOfAccessed, 'valueOfAccessed !== true');
+assert.sameValue(toStringAccessed, false, 'toStringAccessed');

@@ -7,12 +7,11 @@ es5id: 15.3.4.2_A8
 description: >
     Checking if enumerating the Function.prototype.toString.length
     property fails
-includes: [$FAIL.js]
 ---*/
 
 //CHECK#0
 if (!(Function.prototype.toString.hasOwnProperty('length'))) {
-  $FAIL('#0: the Function.prototype.toString has length property.');
+  $ERROR('#0: the Function.prototype.toString has length property.');
 }
 
 
@@ -22,7 +21,7 @@ if (Function.prototype.toString.propertyIsEnumerable('length')) {
 }
 
 // CHECK#2
-for (p in Function.prototype.toString){
+for (var p in Function.prototype.toString){
   if (p==="length")
       $ERROR('#2: the Function.prototype.toString.length property has the attributes DontEnum');
 }

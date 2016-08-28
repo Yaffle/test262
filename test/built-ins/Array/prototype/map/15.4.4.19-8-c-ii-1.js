@@ -1,17 +1,11 @@
 // Copyright (c) 2012 Ecma International.  All rights reserved.
-// Ecma International makes this code available under the terms and conditions set
-// forth on http://hg.ecmascript.org/tests/test262/raw-file/tip/LICENSE (the
-// "Use Terms").   Any redistribution of this code must retain the above
-// copyright and this notice and otherwise comply with the Use Terms.
+// This code is governed by the BSD license found in the LICENSE file.
 
 /*---
 es5id: 15.4.4.19-8-c-ii-1
 description: Array.prototype.map - callbackfn called with correct parameters
-includes: [runTestCase.js]
 ---*/
 
-function testcase() { 
- 
   var bPar = true;
   var bCalled = false;
   function callbackfn(val, idx, obj)
@@ -23,9 +17,8 @@ function testcase() {
 
   var srcArr = [0,1,true,null,new Object(),"five"];
   srcArr[999999] = -6.6;
-  resArr = srcArr.map(callbackfn);
+  var resArr = srcArr.map(callbackfn);
   
-  if(bCalled === true && bPar === true)
-    return true;
- }
-runTestCase(testcase);
+
+assert.sameValue(bCalled, true, 'bCalled');
+assert.sameValue(bPar, true, 'bPar');

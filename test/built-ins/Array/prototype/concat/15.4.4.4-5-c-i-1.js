@@ -1,19 +1,13 @@
 // Copyright (c) 2012 Ecma International.  All rights reserved.
-// Ecma International makes this code available under the terms and conditions set
-// forth on http://hg.ecmascript.org/tests/test262/raw-file/tip/LICENSE (the
-// "Use Terms").   Any redistribution of this code must retain the above
-// copyright and this notice and otherwise comply with the Use Terms.
+// This code is governed by the BSD license found in the LICENSE file.
 
 /*---
 es5id: 15.4.4.4-5-c-i-1
 description: >
     Array.prototype.concat will concat an Array when index property
     (read-only) exists in Array.prototype (Step 5.c.i)
-includes: [runTestCase.js]
 ---*/
 
-function testcase() {
-        try {
             Object.defineProperty(Array.prototype, "0", {
                 value: 100,
                 writable: false,
@@ -44,11 +38,9 @@ function testcase() {
             delete newArr[0];
             verifyConfigurable = newArr.hasOwnProperty("0");
 
-            return hasProperty && instanceOfVerify && verifyValue && !verifyConfigurable && verifyEnumerable && verifyWritable;
-	
-
-        } finally {
-            delete Array.prototype[0];
-        }
-    }
-runTestCase(testcase);
+assert(hasProperty, 'hasProperty !== true');
+assert(instanceOfVerify, 'instanceOfVerify !== true');
+assert(verifyValue, 'verifyValue !== true');
+assert.sameValue(verifyConfigurable, false, 'verifyConfigurable');
+assert(verifyEnumerable, 'verifyEnumerable !== true');
+assert(verifyWritable, 'verifyWritable !== true');

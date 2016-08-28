@@ -5,13 +5,12 @@
 info: The String.prototype property has the attribute DontEnum
 es5id: 15.5.3.1_A2
 description: Checking if enumerating the String.prototype property fails
-includes: [$FAIL.js]
 ---*/
 
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#0
 if (!(String.hasOwnProperty('prototype'))) {
-  $FAIL('#0: String.hasOwnProperty(\'prototype\') return true. Actual: '+String.hasOwnProperty('prototype'));
+  $ERROR('#0: String.hasOwnProperty(\'prototype\') return true. Actual: '+String.hasOwnProperty('prototype'));
 }
 //
 //////////////////////////////////////////////////////////////////////////////
@@ -30,7 +29,7 @@ if (String.propertyIsEnumerable('prototype')) {
 // CHECK#2
 var count=0;
 
-for (p in String){
+for (var p in String){
   if (p==="prototype") count++;
 }
 

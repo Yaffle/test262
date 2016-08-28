@@ -9,14 +9,13 @@ es5id: 15.10.6.2_A4_T11
 description: >
     Call first exec, then set re.lastIndex = {valueOf:function(){throw
     "intoint";}} and again call exec
-includes: [$FAIL.js]
 ---*/
 
-__re = /(?:ab|cd)\d?/g;
+var __re = /(?:ab|cd)\d?/g;
 
-__executed = __re.exec("aacd2233ab12nm444ab42");
+var __executed = __re.exec("aacd2233ab12nm444ab42");
 
-__expected = ["cd2"];
+var __expected = ["cd2"];
 __expected.index = 2;
 __expected.input = "aacd2233ab12nm444ab42";
 
@@ -42,13 +41,13 @@ for(var index=0; index<__expected.length; index++) {
 	}
 }
 
-__obj = {valueOf:function(){throw "intoint";}};
+var __obj = {valueOf:function(){throw "intoint";}};
 
 __re.lastIndex = __obj;
 
 //CHECK#5
 try {
-  $FAIL('#5.1: __obj = {valueOf:function(){throw "intoint";}}; __re.lastIndex = __obj; __executed = __re.exec("aacd2233ab12nm444ab42") throw "intoint". Actual: ' + (__re.exec("aacd2233ab12nm444ab42")));
+  $ERROR('#5.1: __obj = {valueOf:function(){throw "intoint";}}; __re.lastIndex = __obj; __executed = __re.exec("aacd2233ab12nm444ab42") throw "intoint". Actual: ' + (__re.exec("aacd2233ab12nm444ab42")));
 } catch (e) {
 	if (e !== "intoint") {
 		$ERROR('#5.2: __obj = {valueOf:function(){throw "intoint";}}; __re.lastIndex = __obj; __executed = __re.exec("aacd2233ab12nm444ab42")  throw "intoint". Actual: ' + (e));

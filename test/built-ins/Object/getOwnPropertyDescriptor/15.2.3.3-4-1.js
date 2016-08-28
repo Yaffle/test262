@@ -1,29 +1,21 @@
 // Copyright (c) 2012 Ecma International.  All rights reserved.
-// Ecma International makes this code available under the terms and conditions set
-// forth on http://hg.ecmascript.org/tests/test262/raw-file/tip/LICENSE (the
-// "Use Terms").   Any redistribution of this code must retain the above
-// copyright and this notice and otherwise comply with the Use Terms.
+// This code is governed by the BSD license found in the LICENSE file.
 
 /*---
 es5id: 15.2.3.3-4-1
 description: >
     Object.getOwnPropertyDescriptor returns an object representing a
     data desc for valid data valued properties
-includes: [runTestCase.js]
 ---*/
 
-function testcase() {
     var o = {};
     o["foo"] = 101;
 
     var desc = Object.getOwnPropertyDescriptor(o, "foo");
-    if (desc.value === 101 &&
-        desc.enumerable === true &&
-        desc.writable === true &&
-        desc.configurable === true &&
-        !desc.hasOwnProperty("get") &&
-        !desc.hasOwnProperty("set")) {
-      return true;
-    }
- }
-runTestCase(testcase);
+
+assert.sameValue(desc.value, 101, 'desc.value');
+assert.sameValue(desc.enumerable, true, 'desc.enumerable');
+assert.sameValue(desc.writable, true, 'desc.writable');
+assert.sameValue(desc.configurable, true, 'desc.configurable');
+assert.sameValue(desc.hasOwnProperty("get"), false, 'desc.hasOwnProperty("get")');
+assert.sameValue(desc.hasOwnProperty("set"), false, 'desc.hasOwnProperty("set")');

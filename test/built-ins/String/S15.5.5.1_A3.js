@@ -5,6 +5,7 @@
 info: length property has the attributes {DontDelete}
 es5id: 15.5.5.1_A3
 description: Checking if deleting the length property of String fails
+includes: [propertyHelper.js]
 ---*/
 
 var __str__instance = new String("globglob");
@@ -17,10 +18,17 @@ if (!(__str__instance.hasOwnProperty("length"))) {
 //
 //////////////////////////////////////////////////////////////////////////////
 
+verifyNotConfigurable(__str__instance, "length");
+
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#2
-if (delete __str__instance === true) {
-  $ERROR('#2: var __str__instance = new String("globglob"); delete __str__instance !== true');
+try {
+  if (delete __str__instance.length === true) {
+    $ERROR('#2: var __str__instance = new String("globglob"); delete __str__instance.length !== true');
+  }
+} catch (e) {
+  if (e instanceof Test262Error) throw e;
+  assert(e instanceof TypeError);
 }
 //
 //////////////////////////////////////////////////////////////////////////////
@@ -28,7 +36,7 @@ if (delete __str__instance === true) {
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#3
 if (!(__str__instance.hasOwnProperty("length"))) {
-  $ERROR('#3: var __str__instance = new String("globglob"); delete __str__instance; __str__instance.hasOwnProperty("length") return true. Actual: '+__str__instance.hasOwnProperty("length"));
+  $ERROR('#3: var __str__instance = new String("globglob"); delete __str__instance.length; __str__instance.hasOwnProperty("length") return true. Actual: '+__str__instance.hasOwnProperty("length"));
 }
 //
 //////////////////////////////////////////////////////////////////////////////

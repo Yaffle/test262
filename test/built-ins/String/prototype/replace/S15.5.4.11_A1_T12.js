@@ -9,7 +9,6 @@ description: >
     arguments of String object.  First objects have overrided toString
     and valueOf functions, valueOf throw exception.  Second objects
     have overrided toString function, that throw exception
-includes: [$FAIL.js]
 ---*/
 
 var __obj = {toString:function(){return {};}, valueOf:function(){throw "insearchValue";}};
@@ -18,15 +17,13 @@ var __str = new String("ABB\u0041BABAB");
 
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#1
-with(__str){
     try {
-      var x = replace(__obj, __obj2);
-      $FAIL('#1: "var x = replace(__obj,__obj2)" lead to throwing exception');
+      var x = __str.replace(__obj, __obj2);
+      $ERROR('#1: "var x = __str.replace(__obj,__obj2)" lead to throwing exception');
     } catch (e) {
       if (e!=="insearchValue") {
         $ERROR('#1.1: Exception === "insearchValue". Actual: '+e);
       }
     }
-}
 //
 //////////////////////////////////////////////////////////////////////////////

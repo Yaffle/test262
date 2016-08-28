@@ -25,8 +25,13 @@ assert.sameValue = function (actual, expected, message) {
     }
 
     if (message === undefined) {
-        message = 'Expected SameValue(' + String(actual) + ', ' + String(expected) + ') to be true';
+        message = '';
+    } else {
+        message += ' ';
     }
+
+    message += 'Expected SameValue(«' + String(actual) + '», «' + String(expected) + '») to be true';
+
     $ERROR(message);
 };
 
@@ -36,29 +41,41 @@ assert.notSameValue = function (actual, unexpected, message) {
     }
 
     if (message === undefined) {
-        message = 'Expected SameValue(' + String(actual) + ', ' + String(unexpected) + ') to be false';
+        message = '';
+    } else {
+        message += ' ';
     }
+
+    message += 'Expected SameValue(«' + String(actual) + '», «' + String(unexpected) + '») to be false';
+
     $ERROR(message);
 };
 
-assert.throws = function (expectedErrorConstructor, func) {
-    if (func === undefined) {
-        $ERROR('assert.throws requires two arguments: the error constructor and a function to run');
+assert.throws = function (expectedErrorConstructor, func, message) {
+    if (typeof func !== "function") {
+        $ERROR('assert.throws requires two arguments: the error constructor ' +
+            'and a function to run');
         return;
+    }
+    if (message === undefined) {
+        message = '';
+    } else {
+        message += ' ';
     }
 
     try {
         func();
     } catch (thrown) {
         if (typeof thrown !== 'object' || thrown === null) {
-            $ERROR('Thrown value was not an object!');
-            return;
-        }
-        if (thrown.constructor !== expectedErrorConstructor) {
-            $ERROR('Expected a ' + expectedErrorConstructor.name + ' but got a ' + thrown.constructor.name);
+            message += 'Thrown value was not an object!';
+            $ERROR(message);
+        } else if (thrown.constructor !== expectedErrorConstructor) {
+            message += 'Expected a ' + expectedErrorConstructor.name + ' but got a ' + thrown.constructor.name;
+            $ERROR(message);
         }
         return;
     }
 
-    $ERROR('Expected a ' + expectedErrorConstructor.name + ' to be thrown but no exception was thrown at all');
+    message += 'Expected a ' + expectedErrorConstructor.name + ' to be thrown but no exception was thrown at all';
+    $ERROR(message);
 };

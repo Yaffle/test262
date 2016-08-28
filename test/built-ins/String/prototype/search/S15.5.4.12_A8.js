@@ -7,13 +7,12 @@ es5id: 15.5.4.12_A8
 description: >
     Checking if enumerating the String.prototype.search.length
     property fails
-includes: [$FAIL.js]
 ---*/
 
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#0
 if (!(String.prototype.search.hasOwnProperty('length'))) {
-  $FAIL('#0: String.prototype.search.hasOwnProperty(\'length\') return true. Actual: '+String.prototype.search.hasOwnProperty('length'));
+  $ERROR('#0: String.prototype.search.hasOwnProperty(\'length\') return true. Actual: '+String.prototype.search.hasOwnProperty('length'));
 }
 //
 //////////////////////////////////////////////////////////////////////////////
@@ -31,7 +30,7 @@ if (String.prototype.search.propertyIsEnumerable('length')) {
 // CHECK#2
 var count=0;
 
-for (p in String.prototype.search){
+for (var p in String.prototype.search){
   if (p==="length") count++;
 }
 

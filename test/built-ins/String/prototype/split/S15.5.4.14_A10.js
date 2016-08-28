@@ -7,20 +7,20 @@ es5id: 15.5.4.14_A10
 description: >
     Checking if varying the String.prototype.split.length property
     fails
-includes: [$FAIL.js]
+includes: [propertyHelper.js]
 ---*/
 
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#1
 if (!(String.prototype.split.hasOwnProperty('length'))) {
-  $FAIL('#1: String.prototype.split.hasOwnProperty(\'length\') return true. Actual: '+String.prototype.split.hasOwnProperty('length'));
+  $ERROR('#1: String.prototype.split.hasOwnProperty(\'length\') return true. Actual: '+String.prototype.split.hasOwnProperty('length'));
 }
 //
 //////////////////////////////////////////////////////////////////////////////
 
 var __obj = String.prototype.split.length;
 
-String.prototype.split.length = function(){return "shifted";};
+verifyNotWritable(String.prototype.split, "length", null, function(){return "shifted";});
 
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#2

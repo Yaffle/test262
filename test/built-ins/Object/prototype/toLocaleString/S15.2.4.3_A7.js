@@ -5,17 +5,10 @@
 info: Object.prototype.toLocaleString can't be used as a constructor
 es5id: 15.2.4.3_A7
 description: Checking if creating "new Object.prototype.toLocaleString" fails
-includes:
-    - $PRINT.js
-    - $FAIL.js
 ---*/
 
 var FACTORY = Object.prototype.toLocaleString;
 
-try {
-  instance = new FACTORY;
-  $FAIL('#1: Object.prototype.toLocaleString can\'t be used as a constructor');
-} catch (e) {
-  $PRINT(e);
-
-}
+assert.throws(TypeError, function() {
+  new FACTORY;
+});

@@ -1,18 +1,12 @@
 // Copyright (c) 2012 Ecma International.  All rights reserved.
-// Ecma International makes this code available under the terms and conditions set
-// forth on http://hg.ecmascript.org/tests/test262/raw-file/tip/LICENSE (the
-// "Use Terms").   Any redistribution of this code must retain the above
-// copyright and this notice and otherwise comply with the Use Terms.
+// This code is governed by the BSD license found in the LICENSE file.
 
 /*---
 es5id: 15.4.4.22-9-c-ii-12
 description: >
     Array.prototype.reduceRight - callbackfn is called with 3 formal
     parameter
-includes: [runTestCase.js]
 ---*/
-
-function testcase() {
 
         var testResult = false;
         var arr = [11, 12, 13];
@@ -25,6 +19,5 @@ function testcase() {
             return curVal > 10 && arguments[3][idx] === curVal;
         }
 
-        return arr.reduceRight(callbackfn, initVal) === true && testResult;
-    }
-runTestCase(testcase);
+assert.sameValue(arr.reduceRight(callbackfn, initVal), true, 'arr.reduceRight(callbackfn, initVal)');
+assert(testResult, 'testResult !== true');

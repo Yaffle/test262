@@ -5,17 +5,11 @@
 info: Number.prototype.valueOf() returns this number value
 es5id: 15.7.4.4_A1_T01
 description: Call without argument
-includes: [$FAIL.js]
 ---*/
 
 //CHECK#1
-try {
-  Number.prototype.valueOf();
-  $FAIL('#1: "Number.prototype.valueOf();" lead to throwing exception. Actual: '+Number.prototype.valueOf());
-} catch (e) {
-  if (!(e instanceof TypeError)) {
-    $ERROR('#1.1: "Number.prototype.valueOf()" lead to throwing exception. Exception is instance of TypeError. Actual: exception is '+e);
-  }
+if(Number.prototype.valueOf() !== 0){
+  $ERROR('#1: Number.prototype.valueOf() === 0');
 }
 
 //CHECK#2
@@ -39,9 +33,11 @@ if((new Number(1)).valueOf() !== 1){
 }
 
 //CHECK#6
-if(!isNaN((new Number(Number.NaN)).valueOf())){
-  $ERROR('#6: (new Number(Number.NaN)).valueOf() === NaN');
-}
+assert.sameValue(
+  new Number(NaN).valueOf(),
+  NaN,
+  "NaN"
+);
 
 //CHECK#7
 if((new Number(Number.POSITIVE_INFINITY)).valueOf() !== Number.POSITIVE_INFINITY){

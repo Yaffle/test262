@@ -7,17 +7,17 @@ es5id: 15.3.4.2_A10
 description: >
     Checking if varying the Function.prototype.toString.length
     property fails
-includes: [$FAIL.js]
+includes: [propertyHelper.js]
 ---*/
 
 //CHECK#1
 if (!(Function.prototype.toString.hasOwnProperty('length'))) {
-  $FAIL('#1: the Function.prototype.toString has length property.');
+  $ERROR('#1: the Function.prototype.toString has length property.');
 }
 
 var obj = Function.prototype.toString.length;
 
-Function.prototype.toString.length = function(){return "shifted";};
+verifyNotWritable(Function.prototype.toString, "length", null, function(){return "shifted";});
 
 //CHECK#2
 if (Function.prototype.toString.length !== obj) {

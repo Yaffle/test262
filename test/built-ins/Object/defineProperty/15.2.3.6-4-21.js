@@ -1,8 +1,5 @@
 // Copyright (c) 2012 Ecma International.  All rights reserved.
-// Ecma International makes this code available under the terms and conditions set
-// forth on http://hg.ecmascript.org/tests/test262/raw-file/tip/LICENSE (the
-// "Use Terms").   Any redistribution of this code must retain the above
-// copyright and this notice and otherwise comply with the Use Terms.
+// This code is governed by the BSD license found in the LICENSE file.
 
 /*---
 info: >
@@ -13,10 +10,8 @@ es5id: 15.2.3.6-4-21
 description: >
     Object.defineProperty permits setting a getter (if absent) of
     non-configurable accessor properties(8.12.9 step 11.a.ii)
-includes: [runTestCase.js]
 ---*/
 
-function testcase() {
   var o = {};
 
   // create an accessor property; all other attributes default to false.
@@ -33,11 +28,7 @@ function testcase() {
   Object.defineProperty(o, "foo", desc);
   var d2 = Object.getOwnPropertyDescriptor(o, "foo");
 
-  if (d2.get === getter &&
-      d2.set === setter &&
-      d2.configurable === false &&
-      d2.enumerable === false) {
-    return true;
-  }
- }
-runTestCase(testcase);
+assert.sameValue(d2.get, getter, 'd2.get');
+assert.sameValue(d2.set, setter, 'd2.set');
+assert.sameValue(d2.configurable, false, 'd2.configurable');
+assert.sameValue(d2.enumerable, false, 'd2.enumerable');
